@@ -6,3 +6,7 @@ build/
 dist/*
 upload_pypi.sh
 tests/*
+examples/quick_start/dataset/
+examples/quick_start/models/
+examples/quick_start/e5_indexes/
+examples/quick_start/bm25s_indexes/

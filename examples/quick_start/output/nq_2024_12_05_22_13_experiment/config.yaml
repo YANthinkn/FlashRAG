@@ -1,0 +1,80 @@
+bm25_backend: bm25s
+corpus_path: dataset/wiki-18.jsonl
+data_dir: dataset/FlashRAG_datasets/
+dataset_name: nq
+dataset_path: dataset/FlashRAG_datasets/nq
+device: !!python/object/apply:torch.device
+- cuda
+faiss_gpu: false
+framework: fschat
+generation_params:
+  max_tokens: 32
+generator_batch_size: 4
+generator_max_input_len: 1024
+generator_model: llama3-8B-instruct
+generator_model_path: models/llama-3-8b
+gpu_id: '3'
+gpu_memory_utilization: 0.85
+index_path: e5_indexes/e5_Flat.index
+instruction: null
+method2index:
+  bm25: null
+  contriever: null
+  e5: null
+metric_setting:
+  retrieval_recall_topk: 5
+  tokenizer_name: gpt-4
+metrics:
+- em
+- f1
+- acc
+- precision
+- recall
+- input_tokens
+model2path:
+  bge: BAAI/bge-base-en-v1.5
+  contriever: facebook/contriever
+  e5: models/e5-base-v2
+  llama2-13B: meta-llama/Llama-2-13b-hf
+  llama2-13B-chat: meta-llama/Llama-2-13b-chat-hf
+  llama2-7B: meta-llama/Llama-2-7b-hf
+  llama2-7B-chat: meta-llama/Llama-2-7b-chat-hf
+  llama3-8B-instruct: models/llama-3-8b
+model2pooling:
+  bge: cls
+  contriever: mean
+  dpr: cls
+  e5: mean
+  jina: mean
+openai_setting:
+  api_key: null
+  base_url: null
+random_sample: false
+rerank_batch_size: 256
+rerank_max_length: 512
+rerank_model_name: bge-reranker-base
+rerank_model_path: models/bge-reranker-base
+rerank_pooling_method: cls
+rerank_topk: 10
+rerank_use_fp16: true
+retrieval_batch_size: 256
+retrieval_cache_path: null
+retrieval_method: e5
+retrieval_model_path: models/e5-base-v2
+retrieval_pooling_method: mean
+retrieval_query_max_length: 128
+retrieval_topk: 10
+retrieval_use_fp16: true
+save_dir: output/nq_2024_12_05_22_13_experiment
+save_intermediate_data: true
+save_metric_score: true
+save_note: experiment
+save_retrieval_cache: false
+seed: 2024
+split:
+- test
+test_sample_num: null
+use_fid: false
+use_reranker: true
+use_retrieval_cache: false
+use_sentence_transformer: false

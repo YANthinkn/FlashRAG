@@ -12,6 +12,13 @@ from flashrag.utils import get_reranker
 from flashrag.retriever.utils import load_corpus, load_docs, convert_numpy
 from flashrag.retriever.encoder import Encoder, STEncoder
 
+def save_list_to_file(lst, filename):
+    with open(filename, "w", encoding="utf-8") as file:
+        for list in lst:
+            file.write("########################################" + '\n')
+            for item in list:
+                if 'id' in item:  # 确保字典中有'id'键
+                    file.write(item['id'] + '\n')
 
 def cache_manager(func):
     """
@@ -95,11 +102,15 @@ def rerank_manager(func):
     @functools.wraps(func)
     def wrapper(self, query_list, num=None, return_score=False):
         results, scores = func(self, query_list, num, True)
+        # Original List
+        save_list_to_file(results, "original.json")
         if self.use_reranker:
             results, scores = self.reranker.rerank(query_list, results)
+            save_list_to_file(results, "results.json")
             if "batch" not in func.__name__:
                 results = results[0]
                 scores = scores[0]
+                save_list_to_file(results, "results.json")
         if return_score:
             return results, scores
         else:
